@@ -8,7 +8,7 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 
-from app.api.deps import CurrentUser, require_operator
+from app.api.deps import require_operator
 from app.db.models.user import User
 from app.services.vector_store import get_qdrant_client, ensure_collection, COLLECTION_NAME
 from app.services.embeddings import embed_texts

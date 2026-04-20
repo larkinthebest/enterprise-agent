@@ -16,18 +16,20 @@ class Intent(str, Enum):
 
 class PlanStep(BaseModel):
     """One step in the agent's execution plan."""
+
     step_id: int
     description: str
     tool_name: str | None = None
     tool_args: dict[str, Any] = {}
     requires_approval: bool = False
-    status: str = "pending"           # pending | running | completed | failed | skipped
+    status: str = "pending"  # pending | running | completed | failed | skipped
     result: Any = None
     error: str | None = None
 
 
 class AgentState(BaseModel):
     """Full state object passed between LangGraph nodes."""
+
     # ── Identity ─────────────────────────────────────────────────────────
     trace_id: str = ""
     run_id: str = ""

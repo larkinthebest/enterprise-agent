@@ -2,7 +2,7 @@
 
 import logging
 
-from fastapi import APIRouter, status
+from fastapi import APIRouter
 from pydantic import BaseModel
 
 from app.core.config import settings
@@ -26,6 +26,7 @@ class HealthResponse(BaseModel):
 def _check_postgres() -> ComponentHealth:
     try:
         from app.db.session import get_engine
+
         with get_engine().connect() as conn:
             conn.execute(__import__("sqlalchemy").text("SELECT 1"))
         return ComponentHealth(status="ok")
@@ -36,6 +37,7 @@ def _check_postgres() -> ComponentHealth:
 def _check_redis() -> ComponentHealth:
     try:
         import redis as _redis
+
         r = _redis.Redis(host=settings.redis_host, port=settings.redis_port, socket_timeout=2)
         r.ping()
         return ComponentHealth(status="ok")
@@ -46,6 +48,7 @@ def _check_redis() -> ComponentHealth:
 def _check_qdrant() -> ComponentHealth:
     try:
         from qdrant_client import QdrantClient
+
         client = QdrantClient(url=settings.qdrant_url, timeout=2)
         client.get_collections()
         return ComponentHealth(status="ok")

@@ -25,6 +25,7 @@ _MAX_ARG_LENGTH = 5_000
 
 class SanitisationError(Exception):
     """Raised when an input fails sanitisation checks."""
+
     pass
 
 
@@ -58,8 +59,7 @@ def sanitise_tool_input(tool_name: str, kwargs: dict[str, Any]) -> dict[str, Any
         elif isinstance(value, list):
             # Recursively sanitise lists of strings
             cleaned[key] = [
-                sanitise_tool_input(tool_name, {"item": item})["item"]
-                if isinstance(item, str) else item
+                sanitise_tool_input(tool_name, {"item": item})["item"] if isinstance(item, str) else item
                 for item in value
             ]
         else:

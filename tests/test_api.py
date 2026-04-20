@@ -1,7 +1,5 @@
 """Integration tests for API endpoints."""
 
-import pytest
-
 
 def test_health_endpoint(client):
     """Health endpoint should return even if infrastructure is down."""

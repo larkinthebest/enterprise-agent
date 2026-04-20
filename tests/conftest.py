@@ -5,28 +5,29 @@ import secrets
 import pytest
 
 # Set test env vars BEFORE importing app modules
-os.environ.update({
-    "APP_ENV": "test",
-    "POSTGRES_HOST": "localhost",
-    "POSTGRES_PORT": "5432",
-    "POSTGRES_DB": "agent_test",
-    "POSTGRES_USER": "test",
-    "POSTGRES_PASSWORD": "test",
-    "REDIS_HOST": "localhost",
-    "REDIS_PORT": "6379",
-    "QDRANT_HOST": "localhost",
-    "QDRANT_PORT": "6333",
-    "LANGFUSE_HOST": "http://localhost:3000",
-    "LANGFUSE_PUBLIC_KEY": "test",
-    "LANGFUSE_SECRET_KEY": "test",
-    "OPENAI_API_KEY": "sk-test",
-})
+os.environ.update(
+    {
+        "APP_ENV": "test",
+        "POSTGRES_HOST": "localhost",
+        "POSTGRES_PORT": "5432",
+        "POSTGRES_DB": "agent_test",
+        "POSTGRES_USER": "test",
+        "POSTGRES_PASSWORD": "test",
+        "REDIS_HOST": "localhost",
+        "REDIS_PORT": "6379",
+        "QDRANT_HOST": "localhost",
+        "QDRANT_PORT": "6333",
+        "LANGFUSE_HOST": "http://localhost:3000",
+        "LANGFUSE_PUBLIC_KEY": "test",
+        "LANGFUSE_SECRET_KEY": "test",
+        "OPENAI_API_KEY": "sk-test",
+    }
+)
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 from fastapi.testclient import TestClient
-from contextlib import asynccontextmanager
 
 from app.db.base import Base
 
@@ -98,7 +99,9 @@ def operator_user(db_session):
     from app.db.models.user import User, Role
 
     api_key = secrets.token_hex(32)
-    user = User(username=f"testoperator_{secrets.token_hex(4)}", api_key=api_key, role=Role.OPERATOR, full_name="Test Operator")
+    user = User(
+        username=f"testoperator_{secrets.token_hex(4)}", api_key=api_key, role=Role.OPERATOR, full_name="Test Operator"
+    )
     db_session.add(user)
     db_session.commit()
     db_session.refresh(user)

@@ -24,6 +24,7 @@ class RiskLevel(str, Enum):
 
 class ToolSchema(BaseModel):
     """Metadata describing a tool for the LLM and for auditing."""
+
     name: str
     description: str
     risk_level: RiskLevel = RiskLevel.LOW
@@ -47,12 +48,10 @@ class BaseTool(ABC):
     risk_level: RiskLevel = RiskLevel.LOW
 
     @abstractmethod
-    def get_schema(self) -> ToolSchema:
-        ...
+    def get_schema(self) -> ToolSchema: ...
 
     @abstractmethod
-    async def _execute(self, **kwargs: Any) -> Any:
-        ...
+    async def _execute(self, **kwargs: Any) -> Any: ...
 
     async def execute(self, **kwargs: Any) -> ToolResult:
         """Execute with retry + timeout + fallback."""

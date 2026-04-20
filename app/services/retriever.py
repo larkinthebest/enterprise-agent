@@ -32,13 +32,15 @@ async def retrieve_context(query: str, top_k: int = 5) -> list[dict[str, Any]]:
     context_chunks = []
     for hit in results:
         payload = hit.payload or {}
-        context_chunks.append({
-            "id": str(hit.id),
-            "score": round(hit.score, 4),
-            "title": payload.get("title", ""),
-            "content": payload.get("content", ""),
-            "metadata": {k: v for k, v in payload.items() if k not in ("title", "content")},
-        })
+        context_chunks.append(
+            {
+                "id": str(hit.id),
+                "score": round(hit.score, 4),
+                "title": payload.get("title", ""),
+                "content": payload.get("content", ""),
+                "metadata": {k: v for k, v in payload.items() if k not in ("title", "content")},
+            }
+        )
 
     logger.info(
         "RAG retrieval complete",

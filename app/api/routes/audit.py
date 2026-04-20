@@ -49,15 +49,15 @@ def list_audit_logs(
     logs = query.order_by(AuditLog.created_at.desc()).limit(limit).all()
     return [
         AuditLogOut(
-            id=str(l.id),
-            trace_id=l.trace_id,
-            actor=l.actor,
-            action=l.action,
-            resource=l.resource,
-            payload=l.payload,
-            status=l.status,
-            error_detail=l.error_detail,
-            created_at=l.created_at.isoformat() if l.created_at else "",
+            id=str(log.id),
+            trace_id=log.trace_id,
+            actor=log.actor,
+            action=log.action,
+            resource=log.resource,
+            payload=log.payload,
+            status=log.status,
+            error_detail=log.error_detail,
+            created_at=log.created_at.isoformat() if log.created_at else "",
         )
-        for l in logs
+        for log in logs
     ]

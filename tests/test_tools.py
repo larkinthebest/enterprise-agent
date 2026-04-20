@@ -1,13 +1,12 @@
 """Unit tests for the enterprise mock tools."""
 
-import asyncio
 import pytest
 
 from app.tools.crm import SearchCustomersTool, GetEscalationsTool
 from app.tools.ticketing import ListTicketsTool, CreateTicketTool
 from app.tools.calendar import ListEventsTool, CreateEventTool
 from app.tools.knowledge_base import SearchArticlesTool, GetArticleTool
-from app.tools.email import DraftEmailTool, SendEmailTool
+from app.tools.email import DraftEmailTool
 from app.tools.sanitizer import sanitise_tool_input, SanitisationError
 from app.tools.registry import ToolRegistry
 

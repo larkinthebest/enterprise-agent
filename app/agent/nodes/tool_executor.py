@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 from app.agent.state import AgentState
 from app.tools.registry import tool_registry
@@ -56,12 +55,14 @@ async def tool_executor_node(state: AgentState) -> AgentState:
         if result.success:
             step.status = "completed"
             step.result = result.data
-            state.tool_results.append({
-                "step_id": step.step_id,
-                "tool": result.tool_name,
-                "data": result.data,
-                "elapsed_ms": result.elapsed_ms,
-            })
+            state.tool_results.append(
+                {
+                    "step_id": step.step_id,
+                    "tool": result.tool_name,
+                    "data": result.data,
+                    "elapsed_ms": result.elapsed_ms,
+                }
+            )
         else:
             step.status = "failed"
             step.error = result.error

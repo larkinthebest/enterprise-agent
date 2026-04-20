@@ -74,31 +74,51 @@ def build_agent_graph() -> StateGraph:
     # ── Edges ────────────────────────────────────────────────────────────
     graph.add_edge("classify", "planner")
 
-    graph.add_conditional_edges("planner", _route_after_plan, {
-        "rag_lookup": "rag_lookup",
-        "error_handler": "error_handler",
-    })
+    graph.add_conditional_edges(
+        "planner",
+        _route_after_plan,
+        {
+            "rag_lookup": "rag_lookup",
+            "error_handler": "error_handler",
+        },
+    )
 
     graph.add_edge("rag_lookup", "tool_executor")
 
-    graph.add_conditional_edges("tool_executor", _route_after_tools, {
-        "approval_gate": "approval_gate",
-        "validator": "validator",
-        "error_handler": "error_handler",
-    })
+    graph.add_conditional_edges(
+        "tool_executor",
+        _route_after_tools,
+        {
+            "approval_gate": "approval_gate",
+            "validator": "validator",
+            "error_handler": "error_handler",
+        },
+    )
 
-    graph.add_conditional_edges("approval_gate", _route_after_approval, {
-        "tool_executor": "tool_executor",
-        END: END,
-    })
+    graph.add_conditional_edges(
+        "approval_gate",
+        _route_after_approval,
+        {
+            "tool_executor": "tool_executor",
+            END: END,
+        },
+    )
 
-    graph.add_conditional_edges("validator", _route_after_validation, {
-        END: END,
-    })
+    graph.add_conditional_edges(
+        "validator",
+        _route_after_validation,
+        {
+            END: END,
+        },
+    )
 
-    graph.add_conditional_edges("error_handler", _route_after_error, {
-        END: END,
-    })
+    graph.add_conditional_edges(
+        "error_handler",
+        _route_after_error,
+        {
+            END: END,
+        },
+    )
 
     return graph
 

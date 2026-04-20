@@ -68,13 +68,23 @@ def approve(
     except ValueError as exc:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc))
 
-    log_audit(db, current_trace_id.get(), user.username, "approval.approved",
-              resource=approval_id, payload={"comment": body.comment})
+    log_audit(
+        db,
+        current_trace_id.get(),
+        user.username,
+        "approval.approved",
+        resource=approval_id,
+        payload={"comment": body.comment},
+    )
 
     return ApprovalOut(
-        id=str(a.id), run_id=str(a.run_id), action_name=a.action_name,
-        action_payload=a.action_payload, risk_reason=a.risk_reason,
-        status=a.status.value, reviewer_comment=a.reviewer_comment,
+        id=str(a.id),
+        run_id=str(a.run_id),
+        action_name=a.action_name,
+        action_payload=a.action_payload,
+        risk_reason=a.risk_reason,
+        status=a.status.value,
+        reviewer_comment=a.reviewer_comment,
     )
 
 
@@ -91,11 +101,21 @@ def reject(
     except ValueError as exc:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc))
 
-    log_audit(db, current_trace_id.get(), user.username, "approval.rejected",
-              resource=approval_id, payload={"comment": body.comment})
+    log_audit(
+        db,
+        current_trace_id.get(),
+        user.username,
+        "approval.rejected",
+        resource=approval_id,
+        payload={"comment": body.comment},
+    )
 
     return ApprovalOut(
-        id=str(a.id), run_id=str(a.run_id), action_name=a.action_name,
-        action_payload=a.action_payload, risk_reason=a.risk_reason,
-        status=a.status.value, reviewer_comment=a.reviewer_comment,
+        id=str(a.id),
+        run_id=str(a.run_id),
+        action_name=a.action_name,
+        action_payload=a.action_payload,
+        risk_reason=a.risk_reason,
+        status=a.status.value,
+        reviewer_comment=a.reviewer_comment,
     )

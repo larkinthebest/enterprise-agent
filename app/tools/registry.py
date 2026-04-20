@@ -59,17 +59,19 @@ class ToolRegistry:
         out = []
         for tool in self._tools.values():
             s = tool.get_schema()
-            out.append({
-                "type": "function",
-                "function": {
-                    "name": s.name,
-                    "description": s.description,
-                    "parameters": {
-                        "type": "object",
-                        "properties": s.parameters,
+            out.append(
+                {
+                    "type": "function",
+                    "function": {
+                        "name": s.name,
+                        "description": s.description,
+                        "parameters": {
+                            "type": "object",
+                            "properties": s.parameters,
+                        },
                     },
-                },
-            })
+                }
+            )
         return out
 
 

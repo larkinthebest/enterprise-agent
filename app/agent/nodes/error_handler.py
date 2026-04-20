@@ -25,18 +25,22 @@ async def error_handler_node(state: AgentState) -> AgentState:
 
     # ── Collect rollback actions for completed WRITE steps ───────────────
     write_tools = {
-        "ticketing_create_ticket", "ticketing_update_ticket",
-        "calendar_create_event", "email_send",
+        "ticketing_create_ticket",
+        "ticketing_update_ticket",
+        "calendar_create_event",
+        "email_send",
     }
     for step in state.plan:
         if step.status == "completed" and step.tool_name in write_tools:
-            state.rollback_actions.append({
-                "step_id": step.step_id,
-                "tool": step.tool_name,
-                "action": "rollback_needed",
-                "original_args": step.tool_args,
-                "result": step.result,
-            })
+            state.rollback_actions.append(
+                {
+                    "step_id": step.step_id,
+                    "tool": step.tool_name,
+                    "action": "rollback_needed",
+                    "original_args": step.tool_args,
+                    "result": step.result,
+                }
+            )
 
     if state.rollback_actions:
         logger.warning(

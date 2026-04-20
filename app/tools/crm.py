@@ -18,11 +18,46 @@ _MOCK_CUSTOMERS = [
 ]
 
 _MOCK_ESCALATIONS = [
-    {"id": "ESC-4001", "customer_id": "C-1001", "subject": "Production outage in EU region", "severity": "critical", "status": "open", "created": "2026-04-18T09:12:00Z"},
-    {"id": "ESC-4002", "customer_id": "C-1002", "subject": "Billing discrepancy Q1", "severity": "high", "status": "open", "created": "2026-04-17T14:30:00Z"},
-    {"id": "ESC-4003", "customer_id": "C-1001", "subject": "SSO integration failure", "severity": "medium", "status": "open", "created": "2026-04-16T11:00:00Z"},
-    {"id": "ESC-4004", "customer_id": "C-1004", "subject": "Data export timeout", "severity": "high", "status": "open", "created": "2026-04-15T08:45:00Z"},
-    {"id": "ESC-4005", "customer_id": "C-1005", "subject": "Compliance report missing fields", "severity": "medium", "status": "in_progress", "created": "2026-04-14T16:20:00Z"},
+    {
+        "id": "ESC-4001",
+        "customer_id": "C-1001",
+        "subject": "Production outage in EU region",
+        "severity": "critical",
+        "status": "open",
+        "created": "2026-04-18T09:12:00Z",
+    },
+    {
+        "id": "ESC-4002",
+        "customer_id": "C-1002",
+        "subject": "Billing discrepancy Q1",
+        "severity": "high",
+        "status": "open",
+        "created": "2026-04-17T14:30:00Z",
+    },
+    {
+        "id": "ESC-4003",
+        "customer_id": "C-1001",
+        "subject": "SSO integration failure",
+        "severity": "medium",
+        "status": "open",
+        "created": "2026-04-16T11:00:00Z",
+    },
+    {
+        "id": "ESC-4004",
+        "customer_id": "C-1004",
+        "subject": "Data export timeout",
+        "severity": "high",
+        "status": "open",
+        "created": "2026-04-15T08:45:00Z",
+    },
+    {
+        "id": "ESC-4005",
+        "customer_id": "C-1005",
+        "subject": "Compliance report missing fields",
+        "severity": "medium",
+        "status": "in_progress",
+        "created": "2026-04-14T16:20:00Z",
+    },
 ]
 
 
@@ -58,7 +93,11 @@ class GetEscalationsTool(BaseTool):
             risk_level=self.risk_level,
             parameters={
                 "customer_id": {"type": "string", "description": "Optional customer ID filter", "required": False},
-                "severity": {"type": "string", "description": "Optional severity filter (critical|high|medium|low)", "required": False},
+                "severity": {
+                    "type": "string",
+                    "description": "Optional severity filter (critical|high|medium|low)",
+                    "required": False,
+                },
                 "status": {"type": "string", "description": "Optional status filter", "required": False},
             },
             returns={"type": "array", "items": "Escalation"},

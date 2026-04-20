@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from app.api.deps import CurrentUser, require_operator
+from app.api.deps import require_operator
 from app.core.ids import generate_trace_id
 from app.core.logging import current_trace_id
 from app.db.session import get_db
@@ -116,8 +116,13 @@ async def run_agent(
             db.add(approval)
             db.commit()
 
-            log_audit(db, trace_id, user.username, "agent.run.awaiting_approval",
-                      payload={"action": final_state.approval_action})
+            log_audit(
+                db,
+                trace_id,
+                user.username,
+                "agent.run.awaiting_approval",
+                payload={"action": final_state.approval_action},
+            )
 
             return AgentRunResponse(
                 run_id=run_id,
@@ -142,8 +147,7 @@ async def run_agent(
             db_run.error_detail = final_state.error_detail
         db.commit()
 
-        log_audit(db, trace_id, user.username, f"agent.run.{final_status.value}",
-                  payload={"elapsed_ms": elapsed})
+        log_audit(db, trace_id, user.username, f"agent.run.{final_status.value}", payload={"elapsed_ms": elapsed})
 
         return AgentRunResponse(
             run_id=run_id,
@@ -164,8 +168,7 @@ async def run_agent(
         db_run.elapsed_ms = str(elapsed)
         db.commit()
 
-        log_audit(db, trace_id, user.username, "agent.run.error", status="error",
-                  error_detail=str(exc)[:500])
+        log_audit(db, trace_id, user.username, "agent.run.error", status="error", error_detail=str(exc)[:500])
 
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(exc)[:500])
     finally:

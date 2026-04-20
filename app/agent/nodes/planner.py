@@ -33,18 +33,16 @@ async def planner_node(state: AgentState) -> AgentState:
     logger.info("planner_node: start", extra={"trace_id": state.trace_id})
 
     tools_desc = json.dumps(
-        [{"name": s.name, "description": s.description, "parameters": s.parameters}
-         for s in tool_registry.get_schemas()],
+        [
+            {"name": s.name, "description": s.description, "parameters": s.parameters}
+            for s in tool_registry.get_schemas()
+        ],
         indent=2,
     )
 
     prompt = PLANNER_SYSTEM_PROMPT.format(tools=tools_desc)
 
-    user_msg = (
-        f"Request: {state.request_text}\n"
-        f"Intent: {state.intent.value}\n"
-        f"Entities: {', '.join(state.entities)}"
-    )
+    user_msg = f"Request: {state.request_text}\nIntent: {state.intent.value}\nEntities: {', '.join(state.entities)}"
 
     async with httpx.AsyncClient(timeout=60) as client:
         resp = await client.post(
@@ -73,13 +71,15 @@ async def planner_node(state: AgentState) -> AgentState:
         for raw in steps_raw:
             tool_name = raw.get("tool_name")
             tool = tool_registry.get(tool_name) if tool_name else None
-            steps.append(PlanStep(
-                step_id=raw["step_id"],
-                description=raw["description"],
-                tool_name=tool_name,
-                tool_args=raw.get("tool_args", {}),
-                requires_approval=tool.requires_approval if tool else False,
-            ))
+            steps.append(
+                PlanStep(
+                    step_id=raw["step_id"],
+                    description=raw["description"],
+                    tool_name=tool_name,
+                    tool_args=raw.get("tool_args", {}),
+                    requires_approval=tool.requires_approval if tool else False,
+                )
+            )
         state.plan = steps
     except (json.JSONDecodeError, KeyError, TypeError) as exc:
         logger.error("planner_node: failed to parse plan", extra={"error": str(exc), "raw": content})

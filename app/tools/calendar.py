@@ -10,9 +10,27 @@ from typing import Any
 from app.tools.base import BaseTool, ToolSchema, RiskLevel
 
 _MOCK_EVENTS: list[dict] = [
-    {"id": "EVT-001", "title": "Weekly Escalation Review", "start": "2026-04-21T10:00:00Z", "end": "2026-04-21T10:30:00Z", "attendees": ["ops-team", "cs-lead"]},
-    {"id": "EVT-002", "title": "Acme Corp account sync", "start": "2026-04-21T14:00:00Z", "end": "2026-04-21T14:45:00Z", "attendees": ["j.smith@acme.com", "cs-lead"]},
-    {"id": "EVT-003", "title": "Sprint planning", "start": "2026-04-22T09:00:00Z", "end": "2026-04-22T10:00:00Z", "attendees": ["eng-team"]},
+    {
+        "id": "EVT-001",
+        "title": "Weekly Escalation Review",
+        "start": "2026-04-21T10:00:00Z",
+        "end": "2026-04-21T10:30:00Z",
+        "attendees": ["ops-team", "cs-lead"],
+    },
+    {
+        "id": "EVT-002",
+        "title": "Acme Corp account sync",
+        "start": "2026-04-21T14:00:00Z",
+        "end": "2026-04-21T14:45:00Z",
+        "attendees": ["j.smith@acme.com", "cs-lead"],
+    },
+    {
+        "id": "EVT-003",
+        "title": "Sprint planning",
+        "start": "2026-04-22T09:00:00Z",
+        "end": "2026-04-22T10:00:00Z",
+        "attendees": ["eng-team"],
+    },
 ]
 
 
@@ -28,7 +46,11 @@ class ListEventsTool(BaseTool):
             risk_level=self.risk_level,
             parameters={
                 "attendee": {"type": "string", "description": "Filter by attendee", "required": False},
-                "days_ahead": {"type": "integer", "description": "How many days to look ahead (default 7)", "required": False},
+                "days_ahead": {
+                    "type": "integer",
+                    "description": "How many days to look ahead (default 7)",
+                    "required": False,
+                },
             },
         )
 

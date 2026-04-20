@@ -1,7 +1,5 @@
 """Unit tests for agent state and node logic."""
 
-import pytest
-
 from app.agent.state import AgentState, Intent, PlanStep
 
 

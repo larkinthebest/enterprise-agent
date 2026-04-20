@@ -4,17 +4,48 @@ from __future__ import annotations
 
 import asyncio
 import random
-import uuid
 from datetime import datetime, timezone
 from typing import Any
 
 from app.tools.base import BaseTool, ToolSchema, RiskLevel
 
 _MOCK_TICKETS: list[dict] = [
-    {"id": "TKT-7001", "customer_id": "C-1001", "title": "EU region latency spike", "priority": "P1", "status": "open", "assignee": "ops-team", "created": "2026-04-18T09:15:00Z"},
-    {"id": "TKT-7002", "customer_id": "C-1002", "title": "Invoice #4455 amount mismatch", "priority": "P2", "status": "open", "assignee": "billing-team", "created": "2026-04-17T14:35:00Z"},
-    {"id": "TKT-7003", "customer_id": "C-1003", "title": "Feature request: bulk export", "priority": "P3", "status": "triaged", "assignee": "product-team", "created": "2026-04-16T10:00:00Z"},
-    {"id": "TKT-7004", "customer_id": "C-1004", "title": "Data export timing out for large datasets", "priority": "P2", "status": "open", "assignee": "eng-team", "created": "2026-04-15T09:00:00Z"},
+    {
+        "id": "TKT-7001",
+        "customer_id": "C-1001",
+        "title": "EU region latency spike",
+        "priority": "P1",
+        "status": "open",
+        "assignee": "ops-team",
+        "created": "2026-04-18T09:15:00Z",
+    },
+    {
+        "id": "TKT-7002",
+        "customer_id": "C-1002",
+        "title": "Invoice #4455 amount mismatch",
+        "priority": "P2",
+        "status": "open",
+        "assignee": "billing-team",
+        "created": "2026-04-17T14:35:00Z",
+    },
+    {
+        "id": "TKT-7003",
+        "customer_id": "C-1003",
+        "title": "Feature request: bulk export",
+        "priority": "P3",
+        "status": "triaged",
+        "assignee": "product-team",
+        "created": "2026-04-16T10:00:00Z",
+    },
+    {
+        "id": "TKT-7004",
+        "customer_id": "C-1004",
+        "title": "Data export timing out for large datasets",
+        "priority": "P2",
+        "status": "open",
+        "assignee": "eng-team",
+        "created": "2026-04-15T09:00:00Z",
+    },
 ]
 
 
@@ -68,7 +99,15 @@ class CreateTicketTool(BaseTool):
             },
         )
 
-    async def _execute(self, customer_id: str, title: str, priority: str = "P3", assignee: str = "unassigned", description: str = "", **kw: Any) -> dict:
+    async def _execute(
+        self,
+        customer_id: str,
+        title: str,
+        priority: str = "P3",
+        assignee: str = "unassigned",
+        description: str = "",
+        **kw: Any,
+    ) -> dict:
         await asyncio.sleep(random.uniform(0.1, 0.3))
         ticket = {
             "id": f"TKT-{random.randint(8000, 9999)}",

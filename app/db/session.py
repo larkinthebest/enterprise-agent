@@ -5,10 +5,9 @@ Engine is lazily created to avoid connecting at import time during tests.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import sessionmaker
 
 from app.core.config import settings
 
