@@ -1,0 +1,108 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+*.pyo
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+wheels/
+*.egg-link
+.eggs/
+
+# ======================
+# Virtual Environment
+# ======================
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ======================
+# Environment Variables
+# ======================
+.env
+.env.*
+!env.example
+!.env.example
+
+# ======================
+# Testing & Coverage
+# ======================
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.coveragerc
+.tox/
+nosetests.xml
+test-results/
+pytest.ini
+
+# ======================
+# Type Checking
+# ======================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# ======================
+# IDE & Editors
+# ======================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ======================
+# Docker
+# ======================
+.docker/
+docker-compose.override.yml
+
+# ======================
+# Logs & Databases
+# ======================
+*.log
+*.sqlite
+*.sqlite3
+*.db
+logs/
+
+# ======================
+# Secrets & Keys
+# ======================
+*.pem
+*.key
+*.cert
+*.crt
+secrets/
+
+# ======================
+# LangFuse / Tracing
+# ======================
+langfuse_cache/
+
+# ======================
+# Misc
+# ======================
+*.tmp
+*.bak
+*.orig
+.cache/
